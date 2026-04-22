@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall Evo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="container header-container">
+            <div class="brand-block">
+                <h1>Wall Evo</h1>
+                <p class="tagline">Premium Posters for Your Space</p>
+            </div>
+
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#featured">Featured</a>
+                <a href="#shop">Shop</a>
+                <a href="#how-to-order">How to Order</a>
+                <a href="#about">About</a>
+                <a href="#whatsapp">WhatsApp</a>
+                <button id="cart-btn">Cart 🛒 (<span id="cart-count">0</span>)</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Welcome to Wall Evo</h2>
+            <p>Stylish framed posters for your room, office, or gift ideas.</p>
+            <a href="#shop" class="btn">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- ===== INFO SECTION ===== -->
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-box">
+                    <h3>🚚 Delivery in Morocco</h3>
+                    <p>We deliver all across Morocco in <strong>2–5 days</strong>.</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>💳 Payment Methods</h3>
+                    <p>Payment on delivery, bank transfer, or PayPal.</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>🖼️ Framed Posters</h3>
+                    <p>All posters come framed. Choose <strong>Black Frame</strong> or <strong>White Frame</strong>.</p>
+                </div>
+            </div>
+
+            <p class="discount-note">
+                Automatic discounts: <strong>5% off</strong> on 2–3 posters, <strong>10% off</strong> on 4+ posters.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== FEATURED ===== -->
+    <section id="featured" class="shop">
+        <div class="container">
+            <h2>Featured Posters</h2>
+            <div class="grid">
+
+                <div class="product-card" data-name="B&W Porsche 911 GT3 RS" data-price="169">
+                    <img src="poster1.jpg" alt="B&W Porsche 911 GT3 RS" class="preview-image frame-black">
+                    <h3>B&W Porsche 911 GT3 RS</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="White Porsche GT3 RS" data-price="169">
+                    <img src="poster2.jpg" alt="White Porsche GT3 RS" class="preview-image frame-black">
+                    <h3>White Porsche GT3 RS</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="Audi ABT XGT" data-price="169">
+                    <img src="poster3.jpg" alt="Audi ABT XGT" class="preview-image frame-black">
+                    <h3>Audi ABT XGT</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HOW TO ORDER ===== -->
+    <section id="how-to-order" class="how-to-order">
+        <div class="container">
+            <h2>How to Order</h2>
+
+            <div class="steps">
+                <div class="step">
+                    <span>1</span>
+                    <p>Choose your poster</p>
+                </div>
+
+                <div class="step">
+                    <span>2</span>
+                    <p>Select size and frame</p>
+                </div>
+
+                <div class="step">
+                    <span>3</span>
+                    <p>Order directly via WhatsApp</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SHOP ===== -->
+    <section id="shop" class="shop">
+        <div class="container">
+            <h2>All Posters</h2>
+            <div class="grid">
+
+                <div class="product-card" data-name="Mercedes Benz S63 AMG" data-price="169">
+                    <img src="poster4.jpg" alt="Mercedes Benz S63 AMG" class="preview-image frame-black">
+                    <h3>Mercedes Benz S63 AMG</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="Porsche GT3 RS" data-price="169">
+                    <img src="poster5.jpg" alt="Porsche GT3 RS" class="preview-image frame-black">
+                    <h3>Porsche GT3 RS</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="Nissan GTR R35" data-price="169">
+                    <img src="poster6.jpg" alt="Nissan GTR R35" class="preview-image frame-black">
+                    <h3>Nissan GTR R35</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="BMW M3 E30" data-price="169">
+                    <img src="poster7.jpg" alt="BMW M3 E30" class="preview-image frame-black">
+                    <h3>BMW M3 E30</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="Lamborghini Huracan STO" data-price="169">
+                    <img src="poster8.jpg" alt="Lamborghini Huracan STO" class="preview-image frame-black">
+                    <h3>Lamborghini Huracan STO</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="Maserati MC20 CIELO" data-price="169">
+                    <img src="poster9.jpg" alt="Maserati MC20 CIELO" class="preview-image frame-black">
+                    <h3>Maserati MC20 CIELO</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="BMW M2" data-price="169">
+                    <img src="poster10.jpg" alt="BMW M2" class="preview-image frame-black">
+                    <h3>BMW M2</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="Green Porsche 911 GT3 RS" data-price="169">
+                    <img src="poster11.jpg" alt="Green Porsche 911 GT3 RS" class="preview-image frame-black">
+                    <h3>Green Porsche 911 GT3 RS</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-name="Aston Martin DBS" data-price="169">
+                    <img src="poster12.jpg" alt="Aston Martin DBS" class="preview-image frame-black">
+                    <h3>Aston Martin DBS</h3>
+                    <p class="product-price">169 DH</p>
+
+                    <label class="option-label">
+                        Size
+                        <select class="size-select">
+                            <option value="30 × 40 cm">30 × 40 cm</option>
+                            <option value="40 × 60 cm">40 × 60 cm</option>
+                            <option value="50 × 70 cm">50 × 70 cm</option>
+                        </select>
+                    </label>
+
+                    <label class="option-label">
+                        Frame
+                        <select class="frame-select">
+                            <option value="Black Frame">Black Frame</option>
+                            <option value="White Frame">White Frame</option>
+                        </select>
+                    </label>
+
+                    <div class="product-actions">
+                        <button class="add-cart">Add to Cart</button>
+                        <button class="quick-order">Order on WhatsApp</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TRUST ===== -->
+    <section class="trust-section">
+        <div class="container">
+            <h2>Why Order from Wall Evo?</h2>
+
+            <div class="trust-grid">
+                <div class="trust-box">
+                    <h3>High-Quality Prints</h3>
+                    <p>Sharp visuals, rich colors, and a clean premium look.</p>
+                </div>
+
+                <div class="trust-box">
+                    <h3>Ready Framed</h3>
+                    <p>Every poster is prepared with a frame of your choice: black or white.</p>
+                </div>
+
+                <div class="trust-box">
+                    <h3>Safe Packaging</h3>
+                    <p>Your order is packed carefully to arrive clean and protected.</p>
+                </div>
+
+                <div class="trust-box">
+                    <h3>Direct WhatsApp Support</h3>
+                    <p>Fast and easy communication for orders, questions, and custom requests.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2>About Wall Evo</h2>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-paragraph">
+                        Wall Evo is dedicated to bringing your walls to life. Our collection features carefully curated posters designed to make your space more personal, stylish, and memorable.
+                    </p>
+
+                    <p class="about-paragraph">
+                        Whether you are decorating your room, office, gaming setup, or giving a gift to someone special, our framed posters are made to stand out.
+                    </p>
+
+                    <p class="custom-text">
+                        Want something unique? If you do not like any poster on the website, you can send us <strong>your own image</strong> and we can print it for you in high quality, frame it, and deliver it to you. Custom requests are welcome.
+                    </p>
+
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/wall.evo" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+                            <img src="instagram.png" alt="Instagram">
+                        </a>
+
+                        <a href="https://www.tiktok.com/@wall.evo" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="TikTok">
+                            <img src="tiktok.png" alt="TikTok">
+                        </a>
+
+                        <a href="https://www.facebook.com/wall.evoo" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Facebook">
+                            <img src="facebook.png" alt="Facebook">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="about-image">
+                    <img src="about-image.jpg" alt="About Wall Evo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NEWSLETTER ===== -->
+    <section id="newsletter" class="newsletter-section">
+        <div class="container">
+            <h2>Join Our Newsletter</h2>
+            <p class="newsletter-text">Get the latest posters and exclusive discounts delivered to your inbox.</p>
+
+            <form class="newsletter-form">
+                <input type="email" placeholder="Your Email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+	
+	<section id="custom-poster" class="custom-poster-section">
+    <div class="container">
+        <h2>Custom Poster</h2>
+        <p class="custom-poster-text">
+            Upload your own image and preview how it could look as a framed poster.
+            After clicking WhatsApp, please send us the original image there too.
+        </p>
+
+        <div class="custom-poster-grid">
+            <div class="custom-form-box">
+                <label class="option-label" for="custom-image-upload">
+                    Upload Your Image
+                    <input type="file" id="custom-image-upload" accept="image/*">
+                </label>
+
+                <label class="option-label">
+                    Size
+                    <select id="custom-size-select" class="size-select">
+                        <option value="30 × 40 cm">30 × 40 cm</option>
+                        <option value="40 × 60 cm">40 × 60 cm</option>
+                        <option value="50 × 70 cm">50 × 70 cm</option>
+                    </select>
+                </label>
+
+                <label class="option-label">
+                    Frame
+                    <select id="custom-frame-select" class="frame-select">
+                        <option value="Black Frame">Black Frame</option>
+                        <option value="White Frame">White Frame</option>
+                    </select>
+                </label>
+
+                <div class="custom-price-box">
+                    Estimated Price: <span id="custom-price">169 DH</span>
+                </div>
+
+                <textarea
+                    id="custom-request-text"
+                    class="custom-request-textarea"
+                    placeholder="Optional note: write what you want, for example 'please keep the image centered' or 'use this as a gift poster'."
+                ></textarea>
+
+                <div class="custom-action-buttons">
+                    <button id="custom-whatsapp-order" type="button">Order Custom Poster via WhatsApp</button>
+                    <button id="custom-clear-preview" type="button">Clear Preview</button>
+                </div>
+            </div>
+
+            <div class="custom-preview-box">
+                <div id="custom-preview-frame" class="custom-preview-frame frame-black">
+                    <div id="custom-preview-placeholder" class="custom-preview-placeholder">
+                        Your uploaded image preview will appear here
+                    </div>
+                    <img id="custom-preview-image" class="custom-preview-image" src="" alt="Custom poster preview">
+                </div>
+
+                <p class="custom-preview-meta">
+                    <span id="custom-preview-size">30 × 40 cm</span> ·
+                    <span id="custom-preview-frame-text">Black Frame</span>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- ===== WHATSAPP ===== -->
+    <section id="whatsapp" class="whatsapp-section">
+        <div class="container">
+            <h2>Commander sur WhatsApp | الطلب عبر واتساب</h2>
+            <p class="whatsapp-text">
+                Fill in your information and you will be redirected to WhatsApp with your message ready to send.
+                <br>
+                عمر المعلومات ديالك وغادي تتحول مباشرة لواتساب والرسالة غادي تكون واجدة باش تصيفطها.
+            </p>
+
+            <form id="whatsapp-form" class="whatsapp-form">
+                <input type="text" id="wa-name" placeholder="Your Name / الاسم ديالك" required>
+                <input type="tel" id="wa-phone" placeholder="Your Number / رقم الهاتف" required>
+                <textarea id="wa-request" placeholder="What do you want exactly? You can also request a custom poster with your own image. / شنو بغيتي بالضبط؟ تقدر حتى تطلب بوستر مخصص بالصورة ديالك" rows="6" required></textarea>
+                <button type="submit">Continue to WhatsApp</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Wall Evo. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ===== CART SIDEBAR ===== -->
+    <div id="cart-sidebar">
+        <h2>Your Cart</h2>
+        <ul id="cart-items"></ul>
+
+        <div class="cart-summary">
+            <p>Subtotal: <span id="cart-subtotal">$0</span></p>
+            <p>Discount: <span id="cart-discount">$0</span></p>
+            <p class="cart-final-total">Total: <span id="cart-total">$0</span></p>
+            <p class="discount-info-text" id="discount-info-text">No discount applied</p>
+        </div>
+
+        <button id="cart-whatsapp-order">Order via WhatsApp</button>
+        <button id="checkout">Checkout</button>
+        <button id="close-cart">Close</button>
+    </div>
+
+    <!-- ===== FLOATING WHATSAPP ===== -->
+    <a href="https://wa.me/212777711888" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Chat on WhatsApp">
+        Chat on WhatsApp
+    </a>
+
+    <!-- ===== TOAST ===== -->
+    <div id="toast" class="toast">Added to cart</div>
+
+    <!-- ===== IMAGE MODAL ===== -->
+    <div id="image-modal" class="image-modal">
+        <span id="close-modal" class="close-modal">&times;</span>
+        <img id="modal-image" class="modal-image" src="" alt="Preview">
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
