@@ -12,7 +12,17 @@ function getPriceBySize(size) {
 }
 
 /* ===== CART STATE ===== */
-let cart = JSON.parse(localStorage.getItem("cart")) || [];
+function loadCart() {
+    try {
+        const savedCart = JSON.parse(localStorage.getItem("cart"));
+        return Array.isArray(savedCart) ? savedCart : [];
+    } catch {
+        localStorage.removeItem("cart");
+        return [];
+    }
+}
+
+let cart = loadCart();
 
 /* ===== ELEMENTS ===== */
 const cartBtn = document.getElementById("cart-btn");
@@ -24,10 +34,12 @@ const cartSubtotal = document.getElementById("cart-subtotal");
 const cartDiscount = document.getElementById("cart-discount");
 const cartTotal = document.getElementById("cart-total");
 const discountInfoText = document.getElementById("discount-info-text");
-const checkoutBtn = document.getElementById("checkout");
 const cartWhatsAppOrderBtn = document.getElementById("cart-whatsapp-order");
 const toast = document.getElementById("toast");
 const whatsappForm = document.getElementById("whatsapp-form");
+const cartBackdrop = document.getElementById("cart-backdrop");
+const menuToggle = document.getElementById("menu-toggle");
+const primaryNav = document.getElementById("primary-nav");
 
 const imageModal = document.getElementById("image-modal");
 const modalImage = document.getElementById("modal-image");
@@ -37,6 +49,7 @@ const closeModal = document.getElementById("close-modal");
 const customImageUpload = document.getElementById("custom-image-upload");
 const customSizeSelect = document.getElementById("custom-size-select");
 const customFrameSelect = document.getElementById("custom-frame-select");
+const customQuantity = document.getElementById("custom-quantity");
 const customPrice = document.getElementById("custom-price");
 const customPreviewFrame = document.getElementById("custom-preview-frame");
 const customPreviewImage = document.getElementById("custom-preview-image");
@@ -49,10 +62,46 @@ const customRequestText = document.getElementById("custom-request-text");
 
 let customUploadedImageName = "";
 let customUploadedImageURL = "";
+let lastFocusedElement = null;
+
+const faqs = [
+    {
+        question: "How do I order?",
+        answer: "Choose a poster, select the size and frame, and add it to your bag. When you are ready, continue on WhatsApp with the prepared order request."
+    },
+    {
+        question: "Can I request a custom poster?",
+        answer: "Yes. Use the custom poster studio to preview your image and choose a size, frame, and quantity. You can then send the request and original image on WhatsApp."
+    },
+    {
+        question: "What sizes are available?",
+        answer: "The current formats are 30 × 40 cm, 40 × 60 cm, and 50 × 70 cm. The price updates as soon as you select a format."
+    },
+    {
+        question: "Do you deliver across Morocco?",
+        answer: "Yes, WALL EVO accepts delivery requests across Morocco. Availability and order details are confirmed directly on WhatsApp."
+    },
+    {
+        question: "How do I contact WALL EVO?",
+        answer: "Use any WhatsApp button on this page, or find WALL EVO on Instagram using the link in the footer."
+    }
+];
 
 /* ===== HELPERS ===== */
 function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+function getProductImage(name) {
+    const card = Array.from(document.querySelectorAll(".product-card"))
+        .find(product => product.dataset.name === name);
+    return card ? card.querySelector(".preview-image")?.getAttribute("src") || "poster1.jpg" : "poster1.jpg";
+}
+
+function escapeHtml(value) {
+    return String(value).replace(/[&<>'"]/g, character => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", "\"": "&quot;"
+    }[character]));
 }
 
 function normalizeCart() {
@@ -61,13 +110,14 @@ function normalizeCart() {
         price: Number(item.price) || getPriceBySize(item.size || "30 × 40 cm"),
         size: item.size || "30 × 40 cm",
         frame: item.frame || "Black Frame",
-        quantity: Number(item.quantity) > 0 ? Number(item.quantity) : 1
+        quantity: Number(item.quantity) > 0 ? Number(item.quantity) : 1,
+        image: getProductImage(item.name)
     }));
     saveCart();
 }
 
 function formatPrice(price) {
-    return `${price} DH`;
+    return `${new Intl.NumberFormat("en-MA", { maximumFractionDigits: 2 }).format(price)} DH`;
 }
 
 function getCartCount() {
@@ -96,10 +146,11 @@ function getFinalTotal() {
 
 function getDiscountLabel() {
     const rate = getDiscountRate();
+    const totalItems = getCartCount();
 
-    if (rate === 0.10) return "10% discount applied";
-    if (rate === 0.05) return "5% discount applied";
-    return "No discount applied";
+    if (rate === 0.10) return "10% multi-poster discount applied";
+    if (rate === 0.05) return `${totalItems === 3 ? "Add 1 more poster for 10% off" : "5% multi-poster discount applied"}`;
+    return totalItems === 1 ? "Add 1 more poster for 5% off" : "Buy 2–3 and save 5% · Buy 4+ and save 10%";
 }
 
 function showToast(message) {
@@ -136,7 +187,7 @@ function findCartItemIndex(name, size, frame) {
 /* ===== CART MESSAGE ===== */
 function buildCartMessage() {
     if (cart.length === 0) {
-        return "Hello, I want to order from Wall Evo, but my cart is currently empty.";
+        return "WALL EVO order request\n\nHello, I would like help choosing a poster.";
     }
 
     const itemsList = cart.map((item, index) => {
@@ -149,14 +200,18 @@ Unit Price: ${formatPrice(item.price)}
 Line Total: ${formatPrice(lineTotal)}`;
     }).join("\n\n");
 
-    return `Hello, I want to order from Wall Evo.
+    const discountLine = getDiscountAmount() > 0
+        ? `Discount (${getDiscountRate() * 100}%): -${formatPrice(getDiscountAmount())}\n`
+        : "";
 
-My cart items:
+    return `WALL EVO order request
+
 ${itemsList}
 
 Subtotal: ${formatPrice(getCartSubtotal())}
-Discount: ${formatPrice(getDiscountAmount())}
-Final Total: ${formatPrice(getFinalTotal())}`;
+${discountLine}Final total: ${formatPrice(getFinalTotal())}
+
+Please confirm availability and the order. Thank you.`;
 }
 
 /* ===== CART UI ===== */
@@ -164,31 +219,36 @@ function updateCartUI() {
     if (!cartCount || !cartItems) return;
 
     cartCount.innerText = getCartCount();
+    if (cartBtn) cartBtn.setAttribute("aria-label", `Open cart, ${getCartCount()} ${getCartCount() === 1 ? "item" : "items"}`);
     cartItems.innerHTML = "";
 
     if (cart.length === 0) {
-        cartItems.innerHTML = `<li class="empty-cart-message">Your cart is empty. Add posters and order via WhatsApp.</li>`;
+        cartItems.innerHTML = `<li class="empty-cart-message">Your bag is ready for something special.</li>`;
     } else {
         cart.forEach((item, index) => {
             const lineTotal = item.price * item.quantity;
+            const safeName = escapeHtml(item.name);
+            const safeSize = escapeHtml(item.size);
+            const safeFrame = escapeHtml(item.frame);
+            const safeImage = escapeHtml(item.image || getProductImage(item.name));
 
             const li = document.createElement("li");
             li.innerHTML = `
                 <div class="cart-item-main">
+                    <img class="cart-item-image" src="${safeImage}" alt="" loading="lazy">
                     <div class="cart-item-text">
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-meta">Size: ${item.size}</div>
-                        <div class="cart-item-meta">Frame: ${item.frame}</div>
-                        <div class="cart-item-meta">Unit Price: ${formatPrice(item.price)}</div>
-                        <div class="cart-line-total">Line Total: ${formatPrice(lineTotal)}</div>
+                        <div class="cart-item-name">${safeName}</div>
+                        <div class="cart-item-meta">${safeSize} · ${safeFrame}</div>
+                        <div class="cart-item-meta">${formatPrice(item.price)} each</div>
+                        <div class="cart-line-total">${formatPrice(lineTotal)}</div>
                     </div>
-                    <button class="remove-item" data-index="${index}">Remove</button>
+                    <button class="remove-item" type="button" data-index="${index}" aria-label="Remove ${safeName}">Remove</button>
                 </div>
 
                 <div class="quantity-controls">
-                    <button class="qty-btn decrease-qty" data-index="${index}">-</button>
-                    <span class="qty-value">${item.quantity}</span>
-                    <button class="qty-btn increase-qty" data-index="${index}">+</button>
+                    <button class="qty-btn decrease-qty" type="button" data-index="${index}" aria-label="Decrease quantity of ${safeName}">−</button>
+                    <span class="qty-value" aria-label="Quantity ${item.quantity}">${item.quantity}</span>
+                    <button class="qty-btn increase-qty" type="button" data-index="${index}" aria-label="Increase quantity of ${safeName}">+</button>
                 </div>
             `;
             cartItems.appendChild(li);
@@ -196,7 +256,7 @@ function updateCartUI() {
     }
 
     if (cartSubtotal) cartSubtotal.textContent = formatPrice(getCartSubtotal());
-    if (cartDiscount) cartDiscount.textContent = `-${formatPrice(getDiscountAmount())}`;
+    if (cartDiscount) cartDiscount.textContent = getDiscountAmount() > 0 ? `-${formatPrice(getDiscountAmount())}` : formatPrice(0);
     if (cartTotal) cartTotal.textContent = formatPrice(getFinalTotal());
     if (discountInfoText) discountInfoText.textContent = getDiscountLabel();
 
@@ -293,6 +353,7 @@ document.querySelectorAll(".add-cart").forEach(button => {
         const size = card.querySelector(".size-select").value;
         const frame = card.querySelector(".frame-select").value;
         const finalPrice = getPriceBySize(size);
+        const image = card.querySelector(".preview-image").getAttribute("src");
 
         const existingIndex = findCartItemIndex(name, size, frame);
 
@@ -304,7 +365,8 @@ document.querySelectorAll(".add-cart").forEach(button => {
                 price: finalPrice,
                 size,
                 frame,
-                quantity: 1
+                quantity: 1,
+                image
             });
         }
 
@@ -323,13 +385,15 @@ document.querySelectorAll(".quick-order").forEach(button => {
         const frame = card.querySelector(".frame-select").value;
         const finalPrice = getPriceBySize(size);
 
-        const message = `Hello, I want to order this poster from Wall Evo:
+        const message = `WALL EVO order request
 
 Product: ${name}
 Size: ${size}
 Frame: ${frame}
 Quantity: 1
-Price: ${formatPrice(finalPrice)}`;
+Price: ${formatPrice(finalPrice)}
+
+Please confirm availability and the order. Thank you.`;
 
         openWhatsAppWithMessage(message);
     });
@@ -356,7 +420,10 @@ function updateCustomPreviewPrice() {
     if (!customSizeSelect || !customPrice || !customPreviewSize) return;
 
     const size = customSizeSelect.value;
-    const price = getPriceBySize(size);
+    const quantity = Math.max(1, Number(customQuantity?.value) || 1);
+    const subtotal = getPriceBySize(size) * quantity;
+    const discountRate = quantity >= 4 ? 0.10 : quantity >= 2 ? 0.05 : 0;
+    const price = subtotal - (subtotal * discountRate);
 
     customPrice.textContent = formatPrice(price);
     customPreviewSize.textContent = size;
@@ -413,6 +480,13 @@ if (customSizeSelect) {
     customSizeSelect.addEventListener("change", updateCustomPreviewPrice);
 }
 
+if (customQuantity) {
+    customQuantity.addEventListener("input", () => {
+        if (Number(customQuantity.value) < 1) customQuantity.value = 1;
+        updateCustomPreviewPrice();
+    });
+}
+
 if (customFrameSelect) {
     customFrameSelect.addEventListener("change", updateCustomPreviewFrame);
 }
@@ -428,42 +502,74 @@ if (customWhatsAppOrder) {
     customWhatsAppOrder.addEventListener("click", () => {
         const size = customSizeSelect ? customSizeSelect.value : "30 × 40 cm";
         const frame = customFrameSelect ? customFrameSelect.value : "Black Frame";
-        const price = getPriceBySize(size);
+        const quantity = Math.max(1, Number(customQuantity?.value) || 1);
+        const unitPrice = getPriceBySize(size);
+        const subtotal = unitPrice * quantity;
+        const discountRate = quantity >= 4 ? 0.10 : quantity >= 2 ? 0.05 : 0;
+        const discount = subtotal * discountRate;
+        const total = subtotal - discount;
         const note = customRequestText ? customRequestText.value.trim() : "";
 
         const imageStatus = customUploadedImageName
             ? `Uploaded Image: ${customUploadedImageName}`
             : "Uploaded Image: No file selected yet";
 
-        const message = `Hello, I want to order a custom poster from Wall Evo.
+        const discountLine = discount > 0 ? `Discount (${discountRate * 100}%): -${formatPrice(discount)}\n` : "";
+
+        const message = `WALL EVO custom poster request
 
 Type: Custom Poster
 Size: ${size}
 Frame: ${frame}
-Price: ${formatPrice(price)}
+Quantity: ${quantity}
+Unit price: ${formatPrice(unitPrice)}
+Subtotal: ${formatPrice(subtotal)}
+${discountLine}Final total: ${formatPrice(total)}
 ${imageStatus}
 Note: ${note || "No extra note"}
 
-Please note: I will send the original image here on WhatsApp.`;
+I will send the original image here on WhatsApp. Please confirm availability and the request. Thank you.`;
 
         openWhatsAppWithMessage(message);
     });
 }
 
 /* ===== CART SIDEBAR ===== */
+function openCart() {
+    if (!cartSidebar) return;
+    lastFocusedElement = document.activeElement;
+    cartSidebar.classList.add("active");
+    cartSidebar.setAttribute("aria-hidden", "false");
+    if (cartBackdrop) {
+        cartBackdrop.hidden = false;
+        requestAnimationFrame(() => cartBackdrop.classList.add("active"));
+    }
+    document.body.classList.add("no-scroll");
+    closeCart?.focus();
+}
+
+function closeCartPanel() {
+    if (!cartSidebar) return;
+    cartSidebar.classList.remove("active");
+    cartSidebar.setAttribute("aria-hidden", "true");
+    cartBackdrop?.classList.remove("active");
+    document.body.classList.remove("no-scroll");
+    window.setTimeout(() => {
+        if (cartBackdrop && !cartSidebar.classList.contains("active")) cartBackdrop.hidden = true;
+    }, 300);
+    if (lastFocusedElement instanceof HTMLElement) lastFocusedElement.focus();
+}
+
 if (cartBtn && cartSidebar) {
-    cartBtn.addEventListener("click", () => cartSidebar.classList.add("active"));
+    cartBtn.addEventListener("click", openCart);
 }
 
 if (closeCart && cartSidebar) {
-    closeCart.addEventListener("click", () => cartSidebar.classList.remove("active"));
+    closeCart.addEventListener("click", closeCartPanel);
 }
 
-if (checkoutBtn) {
-    checkoutBtn.addEventListener("click", () => {
-        alert("Checkout not implemented in this demo.");
-    });
-}
+cartBackdrop?.addEventListener("click", closeCartPanel);
+document.querySelector(".continue-shopping")?.addEventListener("click", closeCartPanel);
 
 if (cartWhatsAppOrderBtn) {
     cartWhatsAppOrderBtn.addEventListener("click", () => {
@@ -473,20 +579,37 @@ if (cartWhatsAppOrderBtn) {
 
 /* ===== SCROLL ANIMATIONS ===== */
 const sections = document.querySelectorAll("section");
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-function revealSections() {
-    const triggerBottom = window.innerHeight / 1.2;
-
-    sections.forEach(section => {
-        const sectionTop = section.getBoundingClientRect().top;
-        if (sectionTop < triggerBottom) {
-            section.classList.add("visible");
-        }
-    });
+if ("IntersectionObserver" in window && !reduceMotion) {
+    const sectionObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add("visible");
+                sectionObserver.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: "0px 0px -8%", threshold: 0.05 });
+    sections.forEach(section => sectionObserver.observe(section));
+} else {
+    sections.forEach(section => section.classList.add("visible"));
 }
 
-window.addEventListener("scroll", revealSections);
-revealSections();
+/* ===== MOBILE NAVIGATION ===== */
+function closeMenu() {
+    menuToggle?.setAttribute("aria-expanded", "false");
+    primaryNav?.classList.remove("active");
+    menuToggle?.querySelector(".sr-only") && (menuToggle.querySelector(".sr-only").textContent = "Open menu");
+}
+
+menuToggle?.addEventListener("click", () => {
+    const isOpen = menuToggle.getAttribute("aria-expanded") === "true";
+    menuToggle.setAttribute("aria-expanded", String(!isOpen));
+    primaryNav?.classList.toggle("active", !isOpen);
+    menuToggle.querySelector(".sr-only").textContent = isOpen ? "Open menu" : "Close menu";
+});
+
+primaryNav?.querySelectorAll("a").forEach(link => link.addEventListener("click", closeMenu));
 
 /* ===== WHATSAPP FORM ===== */
 if (whatsappForm) {
@@ -497,7 +620,7 @@ if (whatsappForm) {
         const phone = document.getElementById("wa-phone").value.trim();
         const request = document.getElementById("wa-request").value.trim();
 
-        let cartSummary = "Cart: No items selected";
+        let cartSummary = "No posters selected yet.";
 
         if (cart.length > 0) {
             const itemsList = cart.map((item, index) => {
@@ -510,84 +633,120 @@ Unit Price: ${formatPrice(item.price)}
 Line Total: ${formatPrice(lineTotal)}`;
             }).join("\n\n");
 
-            cartSummary = `Cart Items:
+            const discountLine = getDiscountAmount() > 0
+                ? `Discount (${getDiscountRate() * 100}%): -${formatPrice(getDiscountAmount())}\n`
+                : "";
+
+            cartSummary = `Selected posters:
 ${itemsList}
 
 Subtotal: ${formatPrice(getCartSubtotal())}
-Discount: ${formatPrice(getDiscountAmount())}
-Final Total: ${formatPrice(getFinalTotal())}`;
+${discountLine}Final total: ${formatPrice(getFinalTotal())}`;
         }
 
-        const message = `Hello, I want to order from Wall Evo.
+        const message = `WALL EVO order request
 
 Name: ${name}
-Phone Number: ${phone}
+Phone: ${phone}
 Request: ${request}
 
-${cartSummary}`;
+${cartSummary}
+
+Please confirm availability and the order. Thank you.`;
 
         openWhatsAppWithMessage(message);
     });
 }
 
 /* ===== IMAGE MODAL ===== */
-document.querySelectorAll(".preview-image").forEach(img => {
-    img.addEventListener("click", () => {
-        if (!modalImage || !imageModal) return;
-        modalImage.src = img.src;
-        modalImage.classList.remove("frame-black", "frame-white");
+function openImageModal(img) {
+    if (!modalImage || !imageModal) return;
+    lastFocusedElement = document.activeElement;
+    modalImage.src = img.src;
+    modalImage.classList.remove("frame-black", "frame-white");
+    modalImage.classList.add(img.classList.contains("frame-white") ? "frame-white" : "frame-black");
+    modalImage.alt = img.alt;
+    imageModal.classList.add("active");
+    imageModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("no-scroll");
+    closeModal?.focus();
+}
 
-if (img.classList.contains("frame-white")) {
-    modalImage.classList.add("frame-white");
-} else {
-    modalImage.classList.add("frame-black");
-}   
-        modalImage.alt = img.alt;
-        imageModal.classList.add("active");
+function closeImageModal() {
+    if (!imageModal) return;
+    imageModal.classList.remove("active");
+    imageModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("no-scroll");
+    if (lastFocusedElement instanceof HTMLElement) lastFocusedElement.focus();
+}
+
+document.querySelectorAll(".preview-image").forEach(img => {
+    img.setAttribute("role", "button");
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("aria-label", `Open larger preview of ${img.alt}`);
+    img.setAttribute("decoding", "async");
+    if (!img.closest("#featured")) img.setAttribute("loading", "lazy");
+    img.addEventListener("click", () => openImageModal(img));
+    img.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openImageModal(img);
+        }
     });
 });
 
 if (closeModal && imageModal) {
-    closeModal.addEventListener("click", () => {
-        imageModal.classList.remove("active");
-    });
+    closeModal.addEventListener("click", closeImageModal);
 }
 
 if (imageModal) {
     imageModal.addEventListener("click", (e) => {
         if (e.target === imageModal) {
-            imageModal.classList.remove("active");
+            closeImageModal();
         }
     });
 }
 
 document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && imageModal) {
-        imageModal.classList.remove("active");
+    if (e.key === "Escape") {
+        if (imageModal?.classList.contains("active")) closeImageModal();
+        if (cartSidebar?.classList.contains("active")) closeCartPanel();
+        closeMenu();
+    }
+
+    if (e.key === "Tab" && cartSidebar?.classList.contains("active")) {
+        const focusable = Array.from(cartSidebar.querySelectorAll("button, a[href], input, select, textarea"))
+            .filter(element => !element.disabled && element.offsetParent !== null);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+        }
     }
 });
+
+/* ===== FAQ ===== */
+const faqList = document.getElementById("faq-list");
+if (faqList) {
+    faqs.forEach(({ question, answer }) => {
+        const item = document.createElement("details");
+        item.className = "faq-item";
+        const summary = document.createElement("summary");
+        const response = document.createElement("p");
+        summary.textContent = question;
+        response.textContent = answer;
+        item.append(summary, response);
+        faqList.appendChild(item);
+    });
+}
 
 /* ===== START ===== */
 normalizeCart();
 updateCartUI();
 updateCustomPreviewPrice();
 updateCustomPreviewFrame();
-
-/* ===== FRAME CHANGE LIVE ===== */
-
-document.querySelectorAll(".product-card").forEach(card => {
-    const frameSelect = card.querySelector(".frame-select");
-    const image = card.querySelector(".preview-image");
-
-    if (!frameSelect || !image) return;
-
-    frameSelect.addEventListener("change", () => {
-        image.classList.remove("frame-black", "frame-white");
-
-        if (frameSelect.value === "White Frame") {
-            image.classList.add("frame-white");
-        } else {
-            image.classList.add("frame-black");
-        }
-    });
-});

@@ -3,74 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wall Evo</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="WALL EVO posters and custom art prints for modern spaces, available in Morocco.">
+    <meta name="theme-color" content="#f4f0e8">
+    <title>WALL EVO — Posters for modern spaces</title>
+    <link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
     <!-- ===== HEADER ===== -->
-    <header>
+    <header class="site-header">
         <div class="container header-container">
-            <div class="brand-block">
-                <h1>Wall Evo</h1>
-                <p class="tagline">Premium Posters for Your Space</p>
-            </div>
+            <a class="brand-block" href="#home" aria-label="WALL EVO home">
+                <span class="brand-name">WALL EVO</span>
+                <span class="tagline">Posters for modern spaces</span>
+            </a>
 
-            <nav>
-                <a href="#home">Home</a>
+            <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+                <span class="sr-only">Open menu</span>
+                <span aria-hidden="true"></span><span aria-hidden="true"></span>
+            </button>
+
+            <nav id="primary-nav" aria-label="Primary navigation">
+                <a href="#shop">Posters</a>
                 <a href="#featured">Featured</a>
-                <a href="#shop">Shop</a>
-                <a href="#how-to-order">How to Order</a>
+                <a href="#custom-poster">Custom</a>
                 <a href="#about">About</a>
-                <a href="#whatsapp">WhatsApp</a>
-                <button id="cart-btn">Cart 🛒 (<span id="cart-count">0</span>)</button>
+                <a href="#whatsapp">Contact</a>
             </nav>
+
+            <button id="cart-btn" type="button" aria-label="Open cart, 0 items" aria-haspopup="dialog" aria-controls="cart-sidebar">
+                <span>Cart</span>
+                <span class="cart-icon" aria-hidden="true">Bag</span>
+                <span id="cart-count" aria-label="items in cart">0</span>
+            </button>
         </div>
     </header>
 
+    <main>
+
     <!-- ===== HERO ===== -->
     <section id="home" class="hero">
-        <div class="hero-content">
-            <h2>Welcome to Wall Evo</h2>
-            <p>Stylish framed posters for your room, office, or gift ideas.</p>
-            <a href="#shop" class="btn">Shop Now</a>
+        <div class="container hero-layout">
+            <div class="hero-content">
+                <p class="eyebrow">Curated art prints · Morocco</p>
+                <h1>Art that makes the room yours.</h1>
+                <p class="hero-copy">Distinctive automotive posters, framed in black or white and made for contemporary spaces.</p>
+                <div class="hero-actions">
+                    <a href="#shop" class="btn btn-primary">Shop posters</a>
+                    <a href="#custom-poster" class="btn btn-secondary">Create your own</a>
+                </div>
+            </div>
+            <figure class="hero-art" aria-label="Featured WALL EVO poster">
+                <img src="assets/poster12.jpg" alt="Aston Martin DBS poster from the WALL EVO collection" fetchpriority="high">
+            </figure>
+            <div class="hero-note" aria-label="Available poster formats">
+                <span>01 / Curated collection</span>
+                <span>30×40 · 40×60 · 50×70 cm</span>
+            </div>
         </div>
     </section>
 
     <!-- ===== INFO SECTION ===== -->
     <section class="info-section">
         <div class="container">
-            <div class="info-grid">
-                <div class="info-box">
-                    <h3>🚚 Delivery in Morocco</h3>
-                    <p>We deliver all across Morocco in <strong>2–5 days</strong>.</p>
-                </div>
-
-                <div class="info-box">
-                    <h3>💳 Payment Methods</h3>
-                    <p>Payment on delivery, bank transfer, or PayPal.</p>
-                </div>
-
-                <div class="info-box">
-                    <h3>🖼️ Framed Posters</h3>
-                    <p>All posters come framed. Choose <strong>Black Frame</strong> or <strong>White Frame</strong>.</p>
-                </div>
+            <div class="info-grid" aria-label="Store information">
+                <div class="info-box"><span>01</span><p>Delivery across Morocco</p></div>
+                <div class="info-box"><span>02</span><p>Custom poster requests</p></div>
+                <div class="info-box"><span>03</span><p>Black or white frames</p></div>
+                <div class="info-box"><span>04</span><p>Order directly on WhatsApp</p></div>
             </div>
-
-            <p class="discount-note">
-                Automatic discounts: <strong>5% off</strong> on 2–3 posters, <strong>10% off</strong> on 4+ posters.
-            </p>
         </div>
     </section>
 
     <!-- ===== FEATURED ===== -->
     <section id="featured" class="shop">
         <div class="container">
-            <h2>Featured Posters</h2>
+            <div class="section-heading">
+                <div><p class="eyebrow">Editor’s selection</p><h2>Featured posters</h2></div>
+                <p>Statement pieces chosen to anchor a room.<span class="discount-tag">2–3 posters: 5% off · 4+ posters: 10% off</span></p>
+            </div>
             <div class="grid">
 
                 <div class="product-card" data-name="B&W Porsche 911 GT3 RS" data-price="169">
-                    <img src="poster1.jpg" alt="B&W Porsche 911 GT3 RS" class="preview-image frame-black">
+                    <img src="assets/poster1.jpg" alt="B&W Porsche 911 GT3 RS" class="preview-image frame-black">
                     <h3>B&W Porsche 911 GT3 RS</h3>
                     <p class="product-price">169 DH</p>
 
@@ -98,7 +113,7 @@
                 </div>
 
                 <div class="product-card" data-name="White Porsche GT3 RS" data-price="169">
-                    <img src="poster2.jpg" alt="White Porsche GT3 RS" class="preview-image frame-black">
+                    <img src="assets/poster2.jpg" alt="White Porsche GT3 RS" class="preview-image frame-black">
                     <h3>White Porsche GT3 RS</h3>
                     <p class="product-price">169 DH</p>
 
@@ -126,7 +141,7 @@
                 </div>
 
                 <div class="product-card" data-name="Audi ABT XGT" data-price="169">
-                    <img src="poster3.jpg" alt="Audi ABT XGT" class="preview-image frame-black">
+                    <img src="assets/poster3.jpg" alt="Audi ABT XGT" class="preview-image frame-black">
                     <h3>Audi ABT XGT</h3>
                     <p class="product-price">169 DH</p>
 
@@ -160,22 +175,23 @@
     <!-- ===== HOW TO ORDER ===== -->
     <section id="how-to-order" class="how-to-order">
         <div class="container">
-            <h2>How to Order</h2>
+            <p class="eyebrow">Simple by design</p>
+            <h2>From wall to WhatsApp</h2>
 
             <div class="steps">
                 <div class="step">
                     <span>1</span>
-                    <p>Choose your poster</p>
+                    <p><strong>Choose your poster</strong><small>Explore the collection or upload your own artwork.</small></p>
                 </div>
 
                 <div class="step">
                     <span>2</span>
-                    <p>Select size and frame</p>
+                    <p><strong>Select the finish</strong><small>Pick a size and a black or white frame.</small></p>
                 </div>
 
                 <div class="step">
                     <span>3</span>
-                    <p>Order directly via WhatsApp</p>
+                    <p><strong>Confirm on WhatsApp</strong><small>Send the prepared order request to WALL EVO.</small></p>
                 </div>
             </div>
         </div>
@@ -184,11 +200,14 @@
     <!-- ===== SHOP ===== -->
     <section id="shop" class="shop">
         <div class="container">
-            <h2>All Posters</h2>
+            <div class="section-heading">
+                <div><p class="eyebrow">The collection</p><h2>Find your next piece</h2></div>
+                <p>All designs are available in three sizes. Pricing updates with your selection.<span class="discount-tag">2–3 posters: 5% off · 4+ posters: 10% off</span></p>
+            </div>
             <div class="grid">
 
                 <div class="product-card" data-name="Mercedes Benz S63 AMG" data-price="169">
-                    <img src="poster4.jpg" alt="Mercedes Benz S63 AMG" class="preview-image frame-black">
+                    <img src="assets/poster4.jpg" alt="Mercedes Benz S63 AMG" class="preview-image frame-black">
                     <h3>Mercedes Benz S63 AMG</h3>
                     <p class="product-price">169 DH</p>
 
@@ -216,7 +235,7 @@
                 </div>
 
                 <div class="product-card" data-name="Porsche GT3 RS" data-price="169">
-                    <img src="poster5.jpg" alt="Porsche GT3 RS" class="preview-image frame-black">
+                    <img src="assets/poster5.jpg" alt="Porsche GT3 RS" class="preview-image frame-black">
                     <h3>Porsche GT3 RS</h3>
                     <p class="product-price">169 DH</p>
 
@@ -244,7 +263,7 @@
                 </div>
 
                 <div class="product-card" data-name="Nissan GTR R35" data-price="169">
-                    <img src="poster6.jpg" alt="Nissan GTR R35" class="preview-image frame-black">
+                    <img src="assets/poster6.jpg" alt="Nissan GTR R35" class="preview-image frame-black">
                     <h3>Nissan GTR R35</h3>
                     <p class="product-price">169 DH</p>
 
@@ -272,7 +291,7 @@
                 </div>
 
                 <div class="product-card" data-name="BMW M3 E30" data-price="169">
-                    <img src="poster7.jpg" alt="BMW M3 E30" class="preview-image frame-black">
+                    <img src="assets/poster7.jpg" alt="BMW M3 E30" class="preview-image frame-black">
                     <h3>BMW M3 E30</h3>
                     <p class="product-price">169 DH</p>
 
@@ -300,7 +319,7 @@
                 </div>
 
                 <div class="product-card" data-name="Lamborghini Huracan STO" data-price="169">
-                    <img src="poster8.jpg" alt="Lamborghini Huracan STO" class="preview-image frame-black">
+                    <img src="assets/poster8.jpg" alt="Lamborghini Huracan STO" class="preview-image frame-black">
                     <h3>Lamborghini Huracan STO</h3>
                     <p class="product-price">169 DH</p>
 
@@ -328,7 +347,7 @@
                 </div>
 
                 <div class="product-card" data-name="Maserati MC20 CIELO" data-price="169">
-                    <img src="poster9.jpg" alt="Maserati MC20 CIELO" class="preview-image frame-black">
+                    <img src="assets/poster9.jpg" alt="Maserati MC20 CIELO" class="preview-image frame-black">
                     <h3>Maserati MC20 CIELO</h3>
                     <p class="product-price">169 DH</p>
 
@@ -356,7 +375,7 @@
                 </div>
 
                 <div class="product-card" data-name="BMW M2" data-price="169">
-                    <img src="poster10.jpg" alt="BMW M2" class="preview-image frame-black">
+                    <img src="assets/poster10.jpg" alt="BMW M2" class="preview-image frame-black">
                     <h3>BMW M2</h3>
                     <p class="product-price">169 DH</p>
 
@@ -384,7 +403,7 @@
                 </div>
 
                 <div class="product-card" data-name="Green Porsche 911 GT3 RS" data-price="169">
-                    <img src="poster11.jpg" alt="Green Porsche 911 GT3 RS" class="preview-image frame-black">
+                    <img src="assets/poster11.jpg" alt="Green Porsche 911 GT3 RS" class="preview-image frame-black">
                     <h3>Green Porsche 911 GT3 RS</h3>
                     <p class="product-price">169 DH</p>
 
@@ -412,7 +431,7 @@
                 </div>
 
                 <div class="product-card" data-name="Aston Martin DBS" data-price="169">
-                    <img src="poster12.jpg" alt="Aston Martin DBS" class="preview-image frame-black">
+                    <img src="assets/poster12.jpg" alt="Aston Martin DBS" class="preview-image frame-black">
                     <h3>Aston Martin DBS</h3>
                     <p class="product-price">169 DH</p>
 
@@ -446,28 +465,10 @@
     <!-- ===== TRUST ===== -->
     <section class="trust-section">
         <div class="container">
-            <h2>Why Order from Wall Evo?</h2>
-
-            <div class="trust-grid">
-                <div class="trust-box">
-                    <h3>High-Quality Prints</h3>
-                    <p>Sharp visuals, rich colors, and a clean premium look.</p>
-                </div>
-
-                <div class="trust-box">
-                    <h3>Ready Framed</h3>
-                    <p>Every poster is prepared with a frame of your choice: black or white.</p>
-                </div>
-
-                <div class="trust-box">
-                    <h3>Safe Packaging</h3>
-                    <p>Your order is packed carefully to arrive clean and protected.</p>
-                </div>
-
-                <div class="trust-box">
-                    <h3>Direct WhatsApp Support</h3>
-                    <p>Fast and easy communication for orders, questions, and custom requests.</p>
-                </div>
+            <div class="trust-layout">
+                <p class="eyebrow">Made for your space</p>
+                <p class="trust-statement">A considered poster collection with flexible sizes, two frame finishes, and a direct ordering experience.</p>
+                <a href="#custom-poster" class="text-link">Make it personal <span aria-hidden="true">→</span></a>
             </div>
         </div>
     </section>
@@ -475,20 +476,21 @@
     <!-- ===== ABOUT ===== -->
     <section id="about" class="about">
         <div class="container">
-            <h2>About Wall Evo</h2>
+            <p class="eyebrow">Our point of view</p>
+            <h2>Walls should say something.</h2>
 
             <div class="about-content">
                 <div class="about-text">
                     <p class="about-paragraph">
-                        Wall Evo is dedicated to bringing your walls to life. Our collection features carefully curated posters designed to make your space more personal, stylish, and memorable.
+                        WALL EVO curates automotive posters for people who see their space as an expression of taste. Each piece is designed to bring focus, energy, and personality to a room.
                     </p>
 
                     <p class="about-paragraph">
-                        Whether you are decorating your room, office, gaming setup, or giving a gift to someone special, our framed posters are made to stand out.
+                        Choose from the collection, select your preferred format and frame, then complete the request directly with us on WhatsApp.
                     </p>
 
                     <p class="custom-text">
-                        Want something unique? If you do not like any poster on the website, you can send us <strong>your own image</strong> and we can print it for you in high quality, frame it, and deliver it to you. Custom requests are welcome.
+                        Have another image in mind? Use the custom poster studio below to preview it, select the format, and prepare your request.
                     </p>
 
                     <div class="social-links">
@@ -507,38 +509,26 @@
                 </div>
 
                 <div class="about-image">
-                    <img src="about-image.jpg" alt="About Wall Evo">
+                    <img src="assets/poster4.jpg" alt="Mercedes Benz S63 AMG poster from the WALL EVO collection" loading="lazy" decoding="async">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== NEWSLETTER ===== -->
-    <section id="newsletter" class="newsletter-section">
-        <div class="container">
-            <h2>Join Our Newsletter</h2>
-            <p class="newsletter-text">Get the latest posters and exclusive discounts delivered to your inbox.</p>
-
-            <form class="newsletter-form">
-                <input type="email" placeholder="Your Email" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
-    </section>
-	
-	<section id="custom-poster" class="custom-poster-section">
+    <section id="custom-poster" class="custom-poster-section">
     <div class="container">
-        <h2>Custom Poster</h2>
+        <p class="eyebrow">Your image, your wall</p>
+        <h2>Create a custom poster</h2>
         <p class="custom-poster-text">
-            Upload your own image and preview how it could look as a framed poster.
-            After clicking WhatsApp, please send us the original image there too.
+            Upload an image for a private preview, choose the finish, and prepare your WhatsApp request. Your image stays in this browser and is not uploaded by the website.
         </p>
 
         <div class="custom-poster-grid">
             <div class="custom-form-box">
                 <label class="option-label" for="custom-image-upload">
-                    Upload Your Image
-                    <input type="file" id="custom-image-upload" accept="image/*">
+                    Choose your image
+                    <input type="file" id="custom-image-upload" accept="image/jpeg,image/png,image/webp">
+                    <small>JPG, PNG or WebP</small>
                 </label>
 
                 <label class="option-label">
@@ -558,26 +548,33 @@
                     </select>
                 </label>
 
+                <label class="option-label" for="custom-quantity">
+                    Quantity
+                    <input id="custom-quantity" class="quantity-input" type="number" min="1" max="99" value="1" inputmode="numeric">
+                </label>
+
                 <div class="custom-price-box">
-                    Estimated Price: <span id="custom-price">169 DH</span>
+                    Estimated total <span id="custom-price">169 DH</span>
                 </div>
 
                 <textarea
                     id="custom-request-text"
                     class="custom-request-textarea"
-                    placeholder="Optional note: write what you want, for example 'please keep the image centered' or 'use this as a gift poster'."
+                    aria-label="Optional custom poster note"
+                    placeholder="Optional note, for example: keep the image centered."
                 ></textarea>
 
                 <div class="custom-action-buttons">
-                    <button id="custom-whatsapp-order" type="button">Order Custom Poster via WhatsApp</button>
-                    <button id="custom-clear-preview" type="button">Clear Preview</button>
+                    <button id="custom-whatsapp-order" type="button">Request on WhatsApp</button>
+                    <button id="custom-clear-preview" class="button-quiet" type="button">Clear preview</button>
                 </div>
             </div>
 
             <div class="custom-preview-box">
                 <div id="custom-preview-frame" class="custom-preview-frame frame-black">
                     <div id="custom-preview-placeholder" class="custom-preview-placeholder">
-                        Your uploaded image preview will appear here
+                        <span>Image preview</span>
+                        <small>Choose a file to see it framed</small>
                     </div>
                     <img id="custom-preview-image" class="custom-preview-image" src="" alt="Custom poster preview">
                 </div>
@@ -594,60 +591,78 @@
     <!-- ===== WHATSAPP ===== -->
     <section id="whatsapp" class="whatsapp-section">
         <div class="container">
-            <h2>Commander sur WhatsApp | الطلب عبر واتساب</h2>
+            <p class="eyebrow">Direct ordering</p>
+            <h2>Continue on WhatsApp</h2>
             <p class="whatsapp-text">
-                Fill in your information and you will be redirected to WhatsApp with your message ready to send.
-                <br>
-                عمر المعلومات ديالك وغادي تتحول مباشرة لواتساب والرسالة غادي تكون واجدة باش تصيفطها.
+                Add your details and we’ll prepare the message. Nothing is sent until you choose to send it in WhatsApp.<br>
+                <span lang="ar" dir="rtl">عمّر المعلومات ديالك وغادي تلقى الرسالة واجدة فواتساب.</span>
             </p>
 
             <form id="whatsapp-form" class="whatsapp-form">
-                <input type="text" id="wa-name" placeholder="Your Name / الاسم ديالك" required>
-                <input type="tel" id="wa-phone" placeholder="Your Number / رقم الهاتف" required>
-                <textarea id="wa-request" placeholder="What do you want exactly? You can also request a custom poster with your own image. / شنو بغيتي بالضبط؟ تقدر حتى تطلب بوستر مخصص بالصورة ديالك" rows="6" required></textarea>
+                <label for="wa-name">Name / الاسم</label>
+                <input type="text" id="wa-name" autocomplete="name" placeholder="Your name" required>
+                <label for="wa-phone">Phone / رقم الهاتف</label>
+                <input type="tel" id="wa-phone" autocomplete="tel" placeholder="Your phone number" required>
+                <label for="wa-request">Request / الطلب</label>
+                <textarea id="wa-request" placeholder="Tell us what you would like" rows="5" required></textarea>
                 <button type="submit">Continue to WhatsApp</button>
             </form>
         </div>
     </section>
 
+    <section id="faq" class="faq-section">
+        <div class="container faq-layout">
+            <div>
+                <p class="eyebrow">Good to know</p>
+                <h2>Frequently asked</h2>
+                <p>Everything you need before you choose your poster.</p>
+            </div>
+            <div id="faq-list" class="faq-list"></div>
+        </div>
+    </section>
+    </main>
+
     <!-- ===== FOOTER ===== -->
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Wall Evo. All Rights Reserved.</p>
+        <div class="container footer-grid">
+            <div class="footer-brand"><strong>WALL EVO</strong><p>Posters for modern spaces.</p></div>
+            <div><h2>Explore</h2><a href="#shop">Posters</a><a href="#featured">Featured</a><a href="#custom-poster">Custom posters</a></div>
+            <div><h2>Contact</h2><a href="https://wa.me/212777711888" target="_blank" rel="noopener noreferrer">WhatsApp</a><a href="https://www.instagram.com/wall.evo" target="_blank" rel="noopener noreferrer">Instagram</a><a href="#faq">FAQ</a></div>
+            <p class="copyright">&copy; 2026 WALL EVO. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- ===== CART SIDEBAR ===== -->
-    <div id="cart-sidebar">
-        <h2>Your Cart</h2>
+    <div id="cart-backdrop" class="cart-backdrop" hidden></div>
+    <aside id="cart-sidebar" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true">
+        <div class="cart-header"><div><p class="eyebrow">Your selection</p><h2 id="cart-title">Shopping bag</h2></div><button id="close-cart" class="icon-button" type="button" aria-label="Close cart">×</button></div>
         <ul id="cart-items"></ul>
 
         <div class="cart-summary">
-            <p>Subtotal: <span id="cart-subtotal">$0</span></p>
-            <p>Discount: <span id="cart-discount">$0</span></p>
-            <p class="cart-final-total">Total: <span id="cart-total">$0</span></p>
+            <p><span>Subtotal</span><span id="cart-subtotal">0 DH</span></p>
+            <p><span>Discount</span><span id="cart-discount">-0 DH</span></p>
+            <p class="cart-final-total"><span>Total</span><span id="cart-total">0 DH</span></p>
             <p class="discount-info-text" id="discount-info-text">No discount applied</p>
         </div>
 
-        <button id="cart-whatsapp-order">Order via WhatsApp</button>
-        <button id="checkout">Checkout</button>
-        <button id="close-cart">Close</button>
-    </div>
+        <button id="cart-whatsapp-order" type="button">Order via WhatsApp</button>
+        <a class="continue-shopping" href="#shop">Continue shopping</a>
+    </aside>
 
     <!-- ===== FLOATING WHATSAPP ===== -->
     <a href="https://wa.me/212777711888" target="_blank" rel="noopener noreferrer" class="floating-whatsapp" aria-label="Chat on WhatsApp">
-        Chat on WhatsApp
+        <span aria-hidden="true">WA</span> WhatsApp
     </a>
 
     <!-- ===== TOAST ===== -->
-    <div id="toast" class="toast">Added to cart</div>
+    <div id="toast" class="toast" role="status" aria-live="polite">Added to cart</div>
 
     <!-- ===== IMAGE MODAL ===== -->
-    <div id="image-modal" class="image-modal">
-        <span id="close-modal" class="close-modal">&times;</span>
+    <div id="image-modal" class="image-modal" role="dialog" aria-modal="true" aria-label="Poster preview" aria-hidden="true">
+        <button id="close-modal" class="close-modal" type="button" aria-label="Close image preview">&times;</button>
         <img id="modal-image" class="modal-image" src="" alt="Preview">
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=6"></script>
 </body>
 </html>
